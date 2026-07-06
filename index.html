@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week of July 6 — Meal Plan</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%B1%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f1f0e6;
+    --surface: #faf9f2;
+    --ink: #23281f;
+    --muted: #6b7062;
+    --accent: #a23b2e;
+    --accent-2: #b98a2e;
+    --line: #dad6c8;
+    --shadow: rgba(35, 40, 31, 0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1b1f18;
+      --surface: #23281f;
+      --ink: #ece7d8;
+      --muted: #9ca08c;
+      --accent: #e07a62;
+      --accent-2: #e6b85c;
+      --line: #34392c;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1b1f18;
+    --surface: #23281f;
+    --ink: #ece7d8;
+    --muted: #9ca08c;
+    --accent: #e07a62;
+    --accent-2: #e6b85c;
+    --line: #34392c;
+    --shadow: rgba(0, 0, 0, 0.35);
+  }
+  :root[data-theme="light"] {
+    --bg: #f1f0e6;
+    --surface: #faf9f2;
+    --ink: #23281f;
+    --muted: #6b7062;
+    --accent: #a23b2e;
+    --accent-2: #b98a2e;
+    --line: #dad6c8;
+    --shadow: rgba(35, 40, 31, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0 0 3rem;
+  }
+
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 1.1rem; }
+
+  h1, h2, h3 {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-weight: 400;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .num { font-variant-numeric: tabular-nums; font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace; }
+
+  header.top {
+    padding: 1.6rem 0 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+  header.top h1 { font-size: 1.6rem; color: var(--accent); }
+  header.top p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.92rem; }
+  header.top p.updated { font-size: 0.78rem; margin-top: 0.5rem; }
+
+  nav.pillnav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.7rem 1.1rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    overflow-x: auto;
+  }
+  nav.pillnav a {
+    flex: none;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+  }
+  nav.pillnav a:focus-visible, a:focus-visible, summary:focus-visible, label:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  section { padding: 1.6rem 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin: 0 0 0.3rem;
+  }
+  section h2 { font-size: 1.3rem; margin-bottom: 0.9rem; }
+
+  .store-group { margin-bottom: 1.4rem; }
+  .store-group h3 {
+    font-size: 1.02rem;
+    color: var(--accent);
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 0.35rem;
+    margin-bottom: 0.5rem;
+  }
+  .cat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0.6rem 0 0.25rem;
+  }
+  .item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .item:last-child { border-bottom: none; }
+  .item input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--accent);
+    flex: none;
+    margin-top: 0.15rem;
+  }
+  .item .name { flex: 1; font-size: 0.98rem; }
+  .item .price { color: var(--accent-2); font-size: 0.92rem; white-space: nowrap; }
+  .item:has(input:checked) .name { color: var(--muted); text-decoration: line-through; }
+
+  .daycard {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.65rem;
+    box-shadow: 0 1px 2px var(--shadow);
+  }
+  .daycard .day { font-family: Georgia, serif; font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .daycard .meal-row { display: flex; gap: 0.5rem; font-size: 0.92rem; padding: 0.15rem 0; }
+  .daycard .meal-row .slot { color: var(--muted); width: 3.6rem; flex: none; }
+
+  details.recipe {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    margin-bottom: 0.7rem;
+    box-shadow: 0 1px 2px var(--shadow);
+    overflow: hidden;
+  }
+  details.recipe summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 0.85rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  details.recipe summary::-webkit-details-marker { display: none; }
+  details.recipe summary::after {
+    content: "+";
+    margin-left: auto;
+    font-family: Georgia, serif;
+    font-size: 1.2rem;
+    color: var(--accent);
+  }
+  details.recipe[open] summary::after { content: "\2212"; }
+  details.recipe summary h3 { font-size: 1.05rem; flex: 1; }
+  .tag {
+    font-size: 0.66rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    flex: none;
+  }
+  .tag.new { color: var(--accent); border-color: var(--accent); }
+  .recipe-body { padding: 0 1rem 1.1rem; font-size: 0.94rem; }
+  .recipe-body .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 0.8rem; }
+  .recipe-body a { color: var(--accent); }
+  .recipe-body .source { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.8rem; padding: 0.5rem 0.65rem; border-left: 3px solid var(--accent-2); background: color-mix(in srgb, var(--accent-2) 8%, transparent); }
+  .recipe-body .fodmap-flag { font-size: 0.85rem; margin-bottom: 0.8rem; padding: 0.5rem 0.65rem; border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+  .recipe-body h4 {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin: 0.9rem 0 0.4rem;
+  }
+  .recipe-body ul, .recipe-body ol { margin: 0; padding-left: 1.2rem; }
+  .recipe-body li { margin-bottom: 0.35rem; }
+  .safety {
+    margin-top: 0.7rem;
+    padding: 0.55rem 0.7rem;
+    border-left: 3px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    font-size: 0.88rem;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    padding-top: 1.4rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">Meal Plan &middot; 2 people</p>
+    <h1>Week of July 6</h1>
+    <p>Real Canadian Superstore + T&amp;T Supermarket &middot; low-FODMAP, batch-cooked</p>
+    <p class="updated">Updated 2026-07-06</p>
+  </header>
+</div>
+
+<nav class="pillnav">
+  <a href="#shopping">Shopping List</a>
+  <a href="#week">This Week</a>
+  <a href="#recipes">Recipes</a>
+</nav>
+
+<div class="wrap">
+
+<section id="shopping">
+  <p class="eyebrow">Checklist</p>
+  <h2>Shopping List</h2>
+
+  <div class="store-group">
+    <h3>Real Canadian Superstore</h3>
+    <p class="cat-label">Protein</p>
+    <label class="item"><input type="checkbox"><span class="name">Chicken breast (halal), ~1.5 lb</span><span class="price num">$6.88/lb</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Pork sirloin/centre-cut chops, ~4 lb (sheet-pan + braised)</span><span class="price num">$2.99/lb</span></label>
+    <p class="cat-label">Pantry</p>
+    <label class="item"><input type="checkbox"><span class="name">Basmati rice (Elephant, large bag)</span><span class="price num">$12.99</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Crushed tomatoes, 28 oz cans &times;2 (56 oz)</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Dry ranch seasoning packet</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Garlic powder, smoked paprika, Italian herb seasoning &mdash; verify on hand</span></label>
+  </div>
+
+  <div class="store-group">
+    <h3>T&amp;T Supermarket</h3>
+    <p class="cat-label">Protein</p>
+    <label class="item"><input type="checkbox"><span class="name">Pork loin, value pack (frozen), ~1.5 lb</span><span class="price num">$2.88/lb</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Beef top blade (fresh, boneless), ~1.5 lb</span><span class="price num">$10.96/lb</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Atlantic salmon steak (fresh), 2 steaks</span><span class="price num">$9.97/lb</span></label>
+    <p class="cat-label">Produce</p>
+    <label class="item"><input type="checkbox"><span class="name">Crown broccoli, ~2 lb (stir-fry + sheet-pan chops)</span><span class="price num">$1.98/lb</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Yu choy sum, 1 lb</span><span class="price num">$1.88/lb</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Baby bok choy sprout, 1 lb</span><span class="price num">$2.88/lb</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Napa cabbage (short), 1 head</span><span class="price num">$0.77/lb</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Fresh basil, 1 small bunch</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Yellow onion, 1 small</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Garlic, 2 cloves</span></label>
+    <p class="cat-label">Pantry</p>
+    <label class="item"><input type="checkbox"><span class="name">Lee Kum Kee premium oyster sauce</span><span class="price num">$5.87</span></label>
+  </div>
+
+  <div class="store-group">
+    <h3>Already on hand — verify before shopping</h3>
+    <label class="item"><input type="checkbox"><span class="name">Garlic-infused oil (for pork stir-fry), ginger, soy sauce, maple syrup, rice vinegar or lemon juice, cornstarch, neutral oil, butter, dried Italian herbs, olive oil</span></label>
+  </div>
+</section>
+
+<section id="week">
+  <p class="eyebrow">Day by day</p>
+  <h2>This Week</h2>
+
+  <div class="daycard">
+    <p class="day">Mon Jul 6</p>
+    <div class="meal-row"><span class="slot">Lunch</span><span>Pork &amp; Broccoli Stir-Fry</span></div>
+    <div class="meal-row"><span class="slot">Dinner</span><span>Pork &amp; Broccoli Stir-Fry</span></div>
+  </div>
+  <div class="daycard">
+    <p class="day">Tue Jul 7</p>
+    <div class="meal-row"><span class="slot">Lunch</span><span>Chicken &amp; Yu Choy Bowls</span></div>
+    <div class="meal-row"><span class="slot">Dinner</span><span>Sheet-Pan Pork Chops &amp; Broccoli</span></div>
+  </div>
+  <div class="daycard">
+    <p class="day">Wed Jul 8</p>
+    <div class="meal-row"><span class="slot">Lunch</span><span>Chicken &amp; Yu Choy Bowls</span></div>
+    <div class="meal-row"><span class="slot">Dinner</span><span>Sheet-Pan Pork Chops &amp; Broccoli</span></div>
+  </div>
+  <div class="daycard">
+    <p class="day">Thu Jul 9</p>
+    <div class="meal-row"><span class="slot">Lunch</span><span>Beef &amp; Bok Choy Stir-Fry</span></div>
+    <div class="meal-row"><span class="slot">Dinner</span><span>Sicilian Braised Pork Chops</span></div>
+  </div>
+  <div class="daycard">
+    <p class="day">Fri Jul 10</p>
+    <div class="meal-row"><span class="slot">Lunch</span><span>Beef &amp; Bok Choy Stir-Fry</span></div>
+    <div class="meal-row"><span class="slot">Dinner</span><span>Salmon &amp; Napa Cabbage (fresh)</span></div>
+  </div>
+  <div class="daycard">
+    <p class="day">Sat Jul 11</p>
+    <div class="meal-row"><span class="slot">Lunch</span><span>Sicilian Braised Pork Chops</span></div>
+    <div class="meal-row"><span class="slot">Dinner</span><span>Leftover/flex, or eat out</span></div>
+  </div>
+  <div class="daycard">
+    <p class="day">Sun Jul 12</p>
+    <div class="meal-row"><span class="slot">Lunch</span><span>Flex, or eat out</span></div>
+    <div class="meal-row"><span class="slot">Dinner</span><span>Flex, or eat out</span></div>
+  </div>
+</section>
+
+<section id="recipes">
+  <p class="eyebrow">Cook from here</p>
+  <h2>Recipes</h2>
+
+  <details class="recipe">
+    <summary><h3>Pork &amp; Broccoli Stir-Fry over Rice</h3><span class="tag new">new</span></summary>
+    <div class="recipe-body">
+      <p class="meta">Serves 4 &middot; ~15 min active &middot; ~35 min total &middot; reheats very well</p>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>1.5 lb pork loin, sliced thin against the grain</li>
+        <li>1 lb broccoli crowns, cut into bite-size florets</li>
+        <li>3 tbsp soy sauce, divided</li>
+        <li>1 tbsp garlic-infused oil</li>
+        <li>1 tsp grated fresh ginger</li>
+        <li>1 tbsp cornstarch</li>
+        <li>2 tbsp neutral oil, divided</li>
+        <li>1.5 cups basmati rice + 2.25 cups water</li>
+        <li>Salt and pepper, to taste</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Rinse rice, add to a pot with the water and a pinch of salt. Boil uncovered, then cover, simmer on low 15 min, rest covered 5 min, fluff.</li>
+        <li>Slice pork thin against the grain (across the muscle lines).</li>
+        <li>Toss pork with cornstarch, 1 tbsp soy sauce, pepper. Rest 10 min.</li>
+        <li>Cut broccoli into florets.</li>
+        <li>Heat 1 tbsp oil in a large skillet over high heat until shimmering.</li>
+        <li>Add pork in one layer, sit 1 min, then stir-fry 3&ndash;4 min until no pink remains and lightly browned (145&deg;F/63&deg;C, then rest 3 min). Remove to a plate.</li>
+        <li>Add remaining 1 tbsp oil; stir-fry broccoli 2&ndash;3 min until bright green and fork-tender but still a little crisp.</li>
+        <li>Return pork with remaining soy sauce, garlic oil, ginger. Toss 1 min until glossy and hot.</li>
+        <li>Serve over rice.</li>
+      </ol>
+      <p class="safety"><strong>Safety:</strong> pork to at least 145&deg;F/63&deg;C, then rest 3 min.</p>
+      <h4>Storage</h4>
+      <p>Fridge up to 4 days. Microwave covered 1.5&ndash;2 min, stir, 30&ndash;60 sec more.</p>
+    </div>
+  </details>
+
+  <details class="recipe">
+    <summary><h3>Chicken &amp; Yu Choy Ginger Rice Bowls</h3><span class="tag new">new</span></summary>
+    <div class="recipe-body">
+      <p class="meta">Serves 4 &middot; ~15 min active &middot; ~35 min total &middot; reheats very well</p>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>1.5 lb boneless, skinless chicken breast, cubed</li>
+        <li>1 lb yu choy sum, cut into 2-inch pieces</li>
+        <li>1 tbsp grated fresh ginger</li>
+        <li>3 tbsp soy sauce</li>
+        <li>1 tbsp rice vinegar (or lemon juice)</li>
+        <li>1 tbsp maple syrup</li>
+        <li>2 tbsp neutral oil, divided</li>
+        <li>1.5 cups basmati or jasmine rice + 2.25 cups water</li>
+        <li>Salt and pepper, to taste</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Cook rice as usual (rinse, boil, simmer 15 min covered, rest 5 min, fluff).</li>
+        <li>Cube chicken; season with salt and pepper.</li>
+        <li>Wash yu choy, cut into 2-inch pieces, keeping stems separate from leafy tops.</li>
+        <li>Whisk ginger, soy sauce, vinegar, maple syrup into a glaze.</li>
+        <li>Heat 1 tbsp oil over medium-high until shimmering.</li>
+        <li>Cook chicken 5&ndash;6 min, flipping once, until no pink remains and juices run clear (165&deg;F/74&deg;C). Remove to a plate.</li>
+        <li>Add remaining oil; stir-fry stems 1 min, then leafy tops 1&ndash;2 min until wilted but not mushy.</li>
+        <li>Return chicken, add glaze, toss 1 min until coated and hot.</li>
+        <li>Serve over rice.</li>
+      </ol>
+      <p class="safety"><strong>Safety:</strong> chicken to 165&deg;F/74&deg;C &mdash; no rest needed.</p>
+      <h4>Storage</h4>
+      <p>Fridge up to 4 days. Microwave covered 2 min, stir, 30&ndash;60 sec more.</p>
+    </div>
+  </details>
+
+  <details class="recipe">
+    <summary><h3>Beef &amp; Bok Choy Stir-Fry</h3><span class="tag new">new</span></summary>
+    <div class="recipe-body">
+      <p class="meta">Serves 4 &middot; ~15 min active &middot; ~35 min total &middot; reheats very well</p>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>1.5 lb beef top blade, sliced thin against the grain</li>
+        <li>1 lb baby bok choy sprout, halved or quartered lengthwise</li>
+        <li>1 tbsp cornstarch</li>
+        <li>3 tbsp Lee Kum Kee oyster sauce</li>
+        <li>1 tbsp soy sauce</li>
+        <li>1 tsp grated fresh ginger</li>
+        <li>2 tbsp neutral oil, divided</li>
+        <li>1.5 cups rice + 2.25 cups water</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Cook rice as usual.</li>
+        <li>Slice beef thin against the grain into &frac14;-inch strips.</li>
+        <li>Toss beef with cornstarch and soy sauce; rest 10 min.</li>
+        <li>Rinse bok choy, halve or quarter lengthwise, keep root end intact.</li>
+        <li>Heat 1 tbsp oil over high heat until shimmering.</li>
+        <li>Add beef in one layer, sit 1 min, stir-fry 2&ndash;3 min until browned (thin strips cook in under a minute &mdash; watch color, not just the clock). Remove to a plate.</li>
+        <li>Add remaining oil; cook bok choy cut-side down 2 min until lightly charred, flip 1&ndash;2 min more until stalks are just tender.</li>
+        <li>Return beef, add oyster sauce and ginger, toss 1 min until glossy and hot.</li>
+        <li>Serve over rice.</li>
+      </ol>
+      <p class="safety"><strong>Safety:</strong> whole-muscle beef to at least 145&deg;F/63&deg;C with a 3-min rest; thin strips cook through by color/texture.</p>
+      <h4>Storage</h4>
+      <p>Fridge up to 4 days. Microwave covered 2 min, stir, 30&ndash;60 sec more.</p>
+    </div>
+  </details>
+
+  <details class="recipe">
+    <summary><h3>Sheet-Pan Pork Chops &amp; Broccoli</h3><span class="tag new">new</span></summary>
+    <div class="recipe-body">
+      <p class="meta">Serves 4 &middot; ~10 min active &middot; ~30 min total &middot; one pan, oven-based, reheats well sliced</p>
+      <p class="source">Source: <a href="https://www.lecremedelacrumb.com/sheet-pan-pork-chops-with-potatoes-and-broccoli/" target="_blank" rel="noopener">Creme De La Crumb</a> &middot; 4.96&#9733; (139 ratings). Followed as written; potatoes dropped to keep this to just chops + broccoli.</p>
+      <p class="fodmap-flag">&#9888;&#65039; <strong>FODMAP flag (moderate):</strong> ranch seasoning + garlic powder are concentrated onion/garlic. Kept true to source. Lighter option: swap for garlic-infused oil + a no-onion herb blend.</p>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>4 thick-cut boneless pork sirloin/centre-cut chops (~1.5&ndash;2 lb)</li>
+        <li>1 lb broccoli crowns, cut into bite-size florets</li>
+        <li>Salt and pepper, to taste</li>
+        <li>1 tsp garlic powder</li>
+        <li>1 tsp Italian herb seasoning (or Herbes de Provence)</li>
+        <li>&frac12; tsp smoked paprika</li>
+        <li>2 tsp dry ranch seasoning</li>
+        <li>Olive oil, for broccoli (~1 tbsp) and coating chops</li>
+        <li>Optional: lemon wedge, for serving</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Preheat oven to 425&deg;F/220&deg;C. Line a rimmed baking sheet with parchment or foil if you have it.</li>
+        <li>Pat chops dry, season thoroughly both sides with salt, pepper, garlic powder, Italian herbs, smoked paprika, and ranch seasoning.</li>
+        <li>Toss broccoli with ~1 tbsp olive oil, salt, pepper.</li>
+        <li>Arrange chops and broccoli on separate halves of the sheet, spread out in a single layer.</li>
+        <li>Roast 18&ndash;22 min, flipping chops once halfway, until golden and broccoli has browned edges (chops to 145&deg;F/63&deg;C at the thickest part).</li>
+        <li>Rest chops 3&ndash;5 min on a cutting board before slicing.</li>
+        <li>Slice against the grain into &frac12;-inch strips. Serve with broccoli, over rice, with lemon if using.</li>
+      </ol>
+      <p class="safety"><strong>Safety:</strong> pork to at least 145&deg;F/63&deg;C, then rest 3 min.</p>
+      <h4>Storage</h4>
+      <p>Fridge up to 4 days, sliced. Microwave covered 1.5&ndash;2 min, then 30&ndash;60 sec more.</p>
+    </div>
+  </details>
+
+  <details class="recipe">
+    <summary><h3>Tomato-Braised Sicilian Pork Chops</h3><span class="tag new">new</span></summary>
+    <div class="recipe-body">
+      <p class="meta">Serves 4 &middot; ~15 min active &middot; ~2 hr 35 min total (mostly hands-off oven time) &middot; reheats excellently, freezes well</p>
+      <p class="source">Source: <a href="https://www.askchefdennis.com/sicilian-pork-chops/" target="_blank" rel="noopener">Ask Chef Dennis</a> &middot; 5&#9733; (103 ratings), the strongest-rated real match found. Note: Italian basil-tomato flavor (not tex-mex), and a long oven braise rather than a quick simmer.</p>
+      <p class="fodmap-flag">&#9888;&#65039; <strong>FODMAP flag (high):</strong> &frac12; cup diced onion + 2 cloves garlic sauteed into the sauce base. Kept true to source. Lighter option: swap for garlic-infused oil + green onion tops (mutes the flavor base &mdash; a real tradeoff).</p>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>4 thick-cut pork chops (~8 oz each, ~2 lb total)</li>
+        <li>56 oz crushed tomatoes (two 28 oz cans)</li>
+        <li>&frac12; cup diced onion</li>
+        <li>2 cloves garlic, finely diced</li>
+        <li>2 tsp sea salt, divided</li>
+        <li>2 tsp cracked black pepper, divided</li>
+        <li>2 tbsp chopped fresh basil, divided</li>
+        <li>2 tbsp olive oil</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Preheat oven to 325&deg;F/163&deg;C.</li>
+        <li>Pat chops dry, season both sides with 1 tsp salt and 1 tsp pepper.</li>
+        <li>Heat olive oil in a large oven-safe skillet over medium-high heat. Sear chops 2 min per side until golden. Remove to a plate.</li>
+        <li>In the same pan, saut&eacute; the diced onion and garlic ~1 min, until fragrant and softened.</li>
+        <li>Add crushed tomatoes, half the basil, remaining salt and pepper. Stir, scraping up browned bits. Bring to a light boil.</li>
+        <li>Return chops to the pan, spoon sauce over top. Cover tightly with a lid or foil.</li>
+        <li>Braise in the oven 2 hr 15 min, until completely fork-tender.</li>
+        <li>Doneness: pork to at least 145&deg;F/63&deg;C &mdash; this braise passes that easily; judge by texture (falls apart with a fork).</li>
+        <li>Re-season sauce if needed; thin with a splash of water or reduce uncovered on the stovetop if too thick. Stir in remaining basil. Serve with rice.</li>
+      </ol>
+      <p class="safety"><strong>Safety:</strong> pork to at least 145&deg;F/63&deg;C &mdash; judge by texture (fork-tender) since this braise runs well past the minimum.</p>
+      <h4>Storage</h4>
+      <p>Fridge 4&ndash;5 days, or freeze up to 3 months. Reheat stovetop ~5 min, or microwave covered 2&ndash;3 min, spooning sauce over halfway.</p>
+    </div>
+  </details>
+
+  <details class="recipe">
+    <summary><h3>Pan-Seared Salmon with Napa Cabbage</h3><span class="tag new">new &middot; fresh dinner only</span></summary>
+    <div class="recipe-body">
+      <p class="meta">Serves 2 &middot; ~20 min total &middot; do not batch for office lunches &mdash; strong fish smell</p>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>2 Atlantic salmon steaks (~&frac12; lb each)</li>
+        <li>&frac12; head napa cabbage, sliced into ribbons</li>
+        <li>1 tbsp neutral oil</li>
+        <li>1 tbsp butter</li>
+        <li>1 tsp soy sauce</li>
+        <li>&frac12; tsp grated fresh ginger</li>
+        <li>Salt and pepper, to taste</li>
+        <li>1 cup rice + 1.5 cups water, or leftover rice</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Cook rice if not using leftovers.</li>
+        <li>Pat salmon dry, season both sides with salt and pepper.</li>
+        <li>Heat oil in a skillet over medium-high heat until shimmering.</li>
+        <li>Sear salmon undisturbed 4 min, flip carefully, cook 3&ndash;4 min more.</li>
+        <li>Salmon is done when it flakes easily and looks opaque throughout (145&deg;F/63&deg;C). Remove and tent with foil.</li>
+        <li>In the same pan, add butter, napa cabbage, soy sauce, ginger. Saut&eacute; 2&ndash;3 min until wilted but still with a little bite.</li>
+        <li>Serve salmon over rice with the cabbage alongside.</li>
+      </ol>
+      <p class="safety"><strong>Safety:</strong> fish to at least 145&deg;F/63&deg;C, or opaque and flaking easily.</p>
+      <h4>Storage</h4>
+      <p>Best fresh. Leftovers: fridge up to 2 days, eat at home only. Microwave gently ~1 min, or eat cold.</p>
+    </div>
+  </details>
+</section>
+
+<footer>Generated 2026-07-03 &middot; Personal Assistant / Meal Planning</footer>
+
+</div>
+
+<script>
+(function () {
+  var key = 'mealplan-2026-07-06';
+  var checkboxes = Array.prototype.slice.call(document.querySelectorAll('.item input[type="checkbox"]'));
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) {}
+  checkboxes.forEach(function (cb, i) {
+    if (saved[i]) cb.checked = true;
+    cb.addEventListener('change', function () {
+      var state = {};
+      checkboxes.forEach(function (cb2, j) { if (cb2.checked) state[j] = true; });
+      localStorage.setItem(key, JSON.stringify(state));
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
