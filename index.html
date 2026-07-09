@@ -229,6 +229,22 @@
     font-size: 0.88rem;
   }
 
+  .fav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    margin-bottom: 0.7rem;
+    padding: 0.85rem 1rem;
+    box-shadow: 0 1px 2px var(--shadow);
+  }
+  .fav-link h3 { font-size: 1.05rem; flex: 1 1 100%; }
+  .fav-link .goto { font-size: 0.85rem; color: var(--accent); text-decoration: none; flex: 1 1 100%; }
+  .fav-link .goto:hover { text-decoration: underline; }
+
   footer {
     text-align: center;
     color: var(--muted);
@@ -251,6 +267,7 @@
 <nav class="pillnav">
   <a href="#deals">Deals</a>
   <a href="#recipes">Recipes</a>
+  <a href="#favorites">Favorites</a>
 </nav>
 
 <div class="wrap">
@@ -538,12 +555,12 @@
     </div>
   </details>
 
-  <details class="recipe">
+  <details class="recipe" id="menu-laksa">
     <summary><h3>Laksa Noodle Soup</h3><span class="tag mbkk">MBKK 5&#9733;</span><span class="tag batch">batch</span></summary>
     <p class="leverages"><strong>Leverages</strong> &middot; Superstore chicken drumsticks ($2.49/lb &starf;, stock), ginger; optional: Superstore tofu ($2.00) subbed for tofu puffs</p>
     <div class="recipe-body">
       <p class="meta">Serves 2 large bowls &middot; ~15 min active &middot; ~1 hr total &middot; broth reheats well, keep noodles separate</p>
-      <p class="source">Source: <a href="https://www.recipetineats.com/laksa-soup/" target="_blank" rel="noopener">RecipeTin Eats</a> &middot; 4.97&#9733; (340 ratings). Cooked and scored 5&#9733; by Kevin &mdash; already in the repo (<code>recipes/5-laksa-noodle-soup.md</code>). Followed as written.</p>
+      <p class="source">Source: <a href="https://www.recipetineats.com/laksa-soup/" target="_blank" rel="noopener">RecipeTin Eats</a> &middot; 4.97&#9733; (340 ratings). Cooked and scored 5&#9733; by Kevin &mdash; already in the repo (<code>recipes/laksa-noodle-soup.md</code>). Followed as written.</p>
       <p class="fodmap-flag">&#9888;&#65039; <strong>FODMAP flag (high):</strong> 2 cloves fresh garlic plus store-bought laksa paste, which itself typically contains onion/garlic &mdash; a real, likely high FODMAP load. Lighter option: swap the garlic for garlic-infused oil; check the laksa paste's ingredient list for where onion/garlic falls.</p>
       <h4>Chicken Stock</h4>
       <ul>
@@ -599,6 +616,122 @@
       <p class="safety"><strong>Safety:</strong> chicken to at least 165&deg;F/74&deg;C &mdash; the 25-min simmer well exceeds this; judge by the flesh falling easily from the bone.</p>
       <h4>Storage</h4>
       <p>Fridge broth and chicken up to 3&ndash;4 days; store noodles/bean sprouts separately to avoid sogginess. Reheat broth on the stovetop or microwave until steaming, then combine with noodles at serving time.</p>
+    </div>
+  </details>
+</section>
+
+<section id="favorites">
+  <p class="eyebrow">Our greatest hits</p>
+  <h2>Favorites</h2>
+  <p class="lead">The recipes we&rsquo;ve cooked and rated 4&ndash;5&#9733; &mdash; always here, regardless of this week&rsquo;s deals. Tap to expand.</p>
+
+  <details class="recipe">
+    <summary><h3>Crispy Pan-Fried Lemongrass Chicken Thighs</h3><span class="tag mbkk">MBKK 5&#9733;</span><span class="tag fresh">fresh-only</span></summary>
+    <div class="recipe-body">
+      <p class="meta">Serves 2 (4 bone-in, skin-on thighs) &middot; ~10 min active + 1 hr marinate &middot; ~25 min cook &middot; best fresh, skin won&rsquo;t stay crispy reheated</p>
+      <p class="source">Source: <a href="https://iamafoodblog.com/crispy-pan-fried-lemongrass-chicken-recipe/" target="_blank" rel="noopener">I Am A Food Blog</a> &middot; no star rating shown on site. Cooked and scored 5&#9733; by Kevin. Followed as written.</p>
+      <p class="fodmap-flag">&#9888;&#65039; <strong>FODMAP flag (high):</strong> the marinade uses 1 small shallot + 2 cloves garlic &mdash; concentrated onion-family aromatics. Lighter option: swap for 1&ndash;2 tbsp garlic-infused oil plus a pinch of green-onion tops.</p>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>1 stalk lemongrass, white part only, finely minced</li>
+        <li>1 small shallot, minced</li>
+        <li>2 cloves garlic, minced</li>
+        <li>2 tsp sugar</li>
+        <li>1 tbsp fish sauce</li>
+        <li>&frac14;&ndash;&frac12; tsp ground black pepper</li>
+        <li>4 bone-in, skin-on chicken thighs</li>
+        <li>Oil for the pan</li>
+        <li>Steamed rice, to serve; lettuce and tomato, optional</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Combine the minced lemongrass, shallot, garlic, sugar, fish sauce, and black pepper in a shallow bowl or ziplock bag.</li>
+        <li>Add the chicken thighs and coat thoroughly. Marinate at least 1 hour, or overnight for more flavor.</li>
+        <li>Cook rice, timed to finish with the chicken.</li>
+        <li>Heat a thin layer of oil in a heavy-bottomed pan over medium heat until it shimmers (moves easily, faint shimmer).</li>
+        <li>Lay the thighs skin-side down. Cook 15&ndash;20 min without moving, until the skin is deep golden-brown and crispy &mdash; don&rsquo;t flip early, the skin needs the full time to render.</li>
+        <li>Flip and cook ~5 min more, checking near the bone for doneness (~25 min total).</li>
+        <li>Serve over rice with lettuce and tomato if desired.</li>
+      </ol>
+      <p class="safety"><strong>Safety:</strong> chicken to 165&deg;F/74&deg;C at the thickest part near the bone &mdash; bone-in thighs can look done outside before the middle is.</p>
+      <h4>Storage</h4>
+      <p>Best fresh. If storing, fridge up to 3 days; re-crisp in a hot dry pan or toaster oven, not the microwave.</p>
+    </div>
+  </details>
+
+  <div class="fav-link">
+    <h3>Laksa Noodle Soup <span class="tag mbkk">MBKK 5&#9733;</span></h3>
+    <a class="goto" href="#menu-laksa">&uarr; On this week&rsquo;s menu &mdash; see the full recipe above</a>
+  </div>
+
+  <details class="recipe">
+    <summary><h3>One-Pan &ldquo;Marry Me&rdquo; Chicken Orzo</h3><span class="tag mbkk">MBKK 5&#9733;</span><span class="tag batch">batch</span></summary>
+    <div class="recipe-body">
+      <p class="meta">Serves 6 &middot; ~15 min active &middot; ~35 min total &middot; grain-and-sauce combo, reheats well</p>
+      <p class="source">Source: <a href="https://kalejunkie.com/one-pan-marry-me-chicken-orzo/" target="_blank" rel="noopener">Kale Junkie</a> &middot; 4.77&#9733; (135 ratings). Cooked and scored 5&#9733; by Kevin. Followed as written.</p>
+      <p class="fodmap-flag">&#9888;&#65039; <strong>FODMAP flag (high):</strong> 4&ndash;5 cloves mashed garlic is a substantial dose. Lighter option: swap for 2&ndash;3 tbsp garlic-infused oil in the saut&eacute; step &mdash; this mutes the &ldquo;marry me&rdquo; garlic punch, a real tradeoff.</p>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>1.5 lb boneless, skinless chicken breast, cubed</li>
+        <li>2 tbsp olive oil</li>
+        <li>4&ndash;5 cloves garlic, mashed</li>
+        <li>&frac34; cup sun-dried tomatoes (packed in oil, drained)</li>
+        <li>2 tsp Italian seasoning</li>
+        <li>2 tsp paprika</li>
+        <li>&frac12; tsp kosher salt &middot; 1 tsp black pepper</li>
+        <li>1 cup orzo</li>
+        <li>2&frac34; cups chicken broth or water</li>
+        <li>&frac34; cup full-fat coconut milk or heavy cream</li>
+        <li>2 large handfuls fresh spinach</li>
+        <li>&frac34; cup freshly grated Parmesan cheese</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Pat the chicken dry and cut into cubes.</li>
+        <li>Heat a large skillet over medium-high; add the olive oil.</li>
+        <li>Once the oil shimmers, add the chicken; cook 2&ndash;3 min until the edges turn opaque and lightly browned.</li>
+        <li>Add the sun-dried tomatoes, garlic, Italian seasoning, paprika, salt, and pepper; cook 3&ndash;4 min, stirring, until fragrant and the chicken is mostly cooked through.</li>
+        <li>Add the orzo and broth; stir, scraping up any browned bits.</li>
+        <li>Reduce to medium, cover, cook 12 min, stirring occasionally so the orzo doesn&rsquo;t stick.</li>
+        <li>Once the orzo is tender, stir in the coconut milk (or cream) and spinach until the spinach wilts, 1&ndash;2 min.</li>
+        <li>Stir in the Parmesan until melted. Serve immediately.</li>
+      </ol>
+      <p class="safety"><strong>Safety:</strong> chicken to 165&deg;F/74&deg;C &mdash; check a larger cube for no pink and clear juices.</p>
+      <h4>Storage</h4>
+      <p>Fridge up to 4 days. Orzo drinks up liquid &mdash; reheat with a splash of broth or water stirred in to loosen the sauce.</p>
+    </div>
+  </details>
+
+  <details class="recipe">
+    <summary><h3>Thai Chilli Basil Chicken</h3><span class="tag mbkk">MBKK 5&#9733;</span><span class="tag batch">batch</span></summary>
+    <div class="recipe-body">
+      <p class="meta">Serves 2 &middot; ~10 min active &middot; ~15 min total &middot; reheats well as a stir-fry over rice</p>
+      <p class="source">Source: <a href="https://www.recipetineats.com/thai-basil-chicken-stir-fry/" target="_blank" rel="noopener">RecipeTin Eats</a> &middot; 4.93&#9733; (163 ratings). Cooked and scored 5&#9733; by Kevin. Followed as written.</p>
+      <p class="fodmap-flag">&#9888;&#65039; <strong>FODMAP flag (moderate):</strong> 2 large garlic cloves plus the white of the green onion carry fructans (green tops are fine). Lighter option: use 1 tbsp garlic-infused oil and only the green onion tops.</p>
+      <h4>Ingredients</h4>
+      <ul>
+        <li>225 g (7 oz) skinless, boneless chicken thigh, cut into bite-size pieces</li>
+        <li>1 green onion, cut into 4 cm (2") lengths</li>
+        <li>1 cup Thai basil leaves, loosely packed (Holy Basil if available)</li>
+        <li>2 large garlic cloves, finely chopped</li>
+        <li>1 bird&rsquo;s eye or Thai chilli, deseeded and finely chopped</li>
+        <li>1&frac12; tbsp oil (peanut, vegetable, or canola)</li>
+        <li><em>Sauce:</em> 2 tsp oyster sauce, 1 tsp light soy sauce, 1 tsp dark soy sauce, 1 tsp sugar, 2 tbsp water</li>
+        <li>Steamed jasmine rice, to serve</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Combine the sauce ingredients in a small bowl; set aside.</li>
+        <li>Heat the oil in a wok or pan over high heat until it shimmers.</li>
+        <li>Add the garlic and chilli; stir constantly 10 sec until fragrant &mdash; don&rsquo;t let the garlic brown.</li>
+        <li>Add the white part of the green onion and the chicken; stir-fry ~2 min until cooked through (no pink, juices run clear).</li>
+        <li>Add the sauce; cook ~1 min until it reduces to a thick, glossy coating.</li>
+        <li>Toss in the green onion tops and basil; stir just until the basil wilts, 15&ndash;20 sec.</li>
+        <li>Serve immediately over jasmine rice.</li>
+      </ol>
+      <p class="safety"><strong>Safety:</strong> chicken to 165&deg;F/74&deg;C &mdash; at this small dice, 2 min of high heat is enough; check for no pink.</p>
+      <h4>Storage</h4>
+      <p>Fridge up to 3&ndash;4 days. Reheat in a hot pan or microwave 1&ndash;2 min; the basil darkens slightly but flavor holds.</p>
     </div>
   </details>
 </section>
