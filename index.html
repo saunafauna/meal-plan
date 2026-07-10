@@ -229,21 +229,27 @@
     font-size: 0.88rem;
   }
 
-  .fav-link {
+  .fav-controls {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
+    margin-bottom: 1.1rem;
+  }
+  .fav-count { font-size: 0.8rem; color: var(--muted); }
+  .fav-shuffle {
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--ink);
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 8px;
-    margin-bottom: 0.7rem;
-    padding: 0.85rem 1rem;
-    box-shadow: 0 1px 2px var(--shadow);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    cursor: pointer;
   }
-  .fav-link h3 { font-size: 1.05rem; flex: 1 1 100%; }
-  .fav-link .goto { font-size: 0.85rem; color: var(--accent); text-decoration: none; flex: 1 1 100%; }
-  .fav-link .goto:hover { text-decoration: underline; }
+  .fav-shuffle:hover { border-color: var(--accent); color: var(--accent); }
+  .fav-shuffle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .fav-card[hidden] { display: none; }
 
   footer {
     text-align: center;
@@ -623,9 +629,15 @@
 <section id="favorites">
   <p class="eyebrow">Our greatest hits</p>
   <h2>Favorites</h2>
-  <p class="lead">The recipes we&rsquo;ve cooked and rated 4&ndash;5&#9733; &mdash; always here, regardless of this week&rsquo;s deals. Tap to expand.</p>
+  <p class="lead">The recipes we&rsquo;ve cooked and rated 4&ndash;5&#9733; &mdash; always here, regardless of this week&rsquo;s deals. A few are shown at random each visit; tap <strong>Shuffle</strong> for a different set, or tap any card to expand.</p>
 
-  <details class="recipe">
+  <div class="fav-controls">
+    <span class="fav-count" id="fav-count"></span>
+    <button type="button" class="fav-shuffle" id="fav-shuffle">&#8635; Shuffle favorites</button>
+  </div>
+
+  <div id="fav-pool">
+  <details class="recipe fav-card">
     <summary><h3>Crispy Pan-Fried Lemongrass Chicken Thighs</h3><span class="tag mbkk">MBKK 5&#9733;</span><span class="tag fresh">fresh-only</span></summary>
     <div class="recipe-body">
       <p class="meta">Serves 2 (4 bone-in, skin-on thighs) &middot; ~10 min active + 1 hr marinate &middot; ~25 min cook &middot; best fresh, skin won&rsquo;t stay crispy reheated</p>
@@ -659,12 +671,70 @@
     </div>
   </details>
 
-  <div class="fav-link">
-    <h3>Laksa Noodle Soup <span class="tag mbkk">MBKK 5&#9733;</span></h3>
-    <a class="goto" href="#menu-laksa">&uarr; On this week&rsquo;s menu &mdash; see the full recipe above</a>
-  </div>
+  <details class="recipe fav-card">
+    <summary><h3>Laksa Noodle Soup</h3><span class="tag mbkk">MBKK 5&#9733;</span><span class="tag batch">batch</span></summary>
+    <div class="recipe-body">
+      <p class="meta">Serves 2 large bowls &middot; ~15 min active &middot; ~1 hr total &middot; broth reheats well, keep noodles separate</p>
+      <p class="source">Source: <a href="https://www.recipetineats.com/laksa-soup/" target="_blank" rel="noopener">RecipeTin Eats</a> &middot; 4.97&#9733; (340 ratings). Cooked and scored 5&#9733; by Kevin &mdash; in the repo (<code>recipes/laksa-noodle-soup.md</code>). Followed as written.</p>
+      <p class="fodmap-flag">&#9888;&#65039; <strong>FODMAP flag (high):</strong> 2 cloves fresh garlic plus store-bought laksa paste, which itself typically contains onion/garlic &mdash; a real, likely high FODMAP load. Lighter option: swap the garlic for garlic-infused oil; check the laksa paste's ingredient list for where onion/garlic falls.</p>
+      <h4>Chicken Stock</h4>
+      <ul>
+        <li>2 cups (500 ml) chicken stock/broth</li>
+        <li>1 cup (250 ml) water</li>
+        <li>3 chicken drumsticks</li>
+      </ul>
+      <h4>Laksa Broth</h4>
+      <ul>
+        <li>1&frac12; tbsp oil</li>
+        <li>2 garlic cloves, minced (or garlic-infused oil &mdash; see flag)</li>
+        <li>2 cm ginger, finely grated</li>
+        <li>1 lemongrass stalk, white part grated</li>
+        <li>2 bird's eye chillies, finely chopped</li>
+        <li>&frac12; cup (135 g) laksa paste</li>
+        <li>400 ml can coconut milk</li>
+        <li>2 tsp fish sauce</li>
+      </ul>
+      <h4>Noodles + Toppings</h4>
+      <ul>
+        <li>50 g dried vermicelli noodles</li>
+        <li>100 g hokkien noodles (optional)</li>
+        <li>80 g bean sprouts</li>
+        <li>80 g tofu puffs, cut in half (or pan-fried cubes of firm tofu)</li>
+      </ul>
+      <h4>Laksa Chilli Sauce</h4>
+      <ul>
+        <li>&frac12; tsp sugar</li>
+        <li>1&frac12; tsp soy sauce</li>
+        <li>&frac12; garlic clove, minced</li>
+        <li>1&frac12; tsp laksa paste</li>
+        <li>1 tbsp Sriracha sauce</li>
+        <li>1 tbsp chilli paste from jar</li>
+        <li>1 tbsp vegetable oil</li>
+      </ul>
+      <h4>Garnishes</h4>
+      <ul>
+        <li>Fresh coriander/cilantro</li>
+        <li>Lime wedges</li>
+        <li>Crispy fried shallots (optional)</li>
+        <li>Finely sliced red chilli (optional)</li>
+      </ul>
+      <h4>Steps</h4>
+      <ol>
+        <li>Chicken stock: place the stock ingredients in a medium saucepan over high heat; bring to a simmer, then reduce to medium-high. Cook 25 min, until the chicken flesh falls easily from the bone and the liquid has reduced by about a third. Discard the skin; pull the flesh into a bowl; discard the bones. Set the broth aside.</li>
+        <li>Laksa chilli sauce: mix all ingredients in a small bowl. Set aside at least 20 min.</li>
+        <li>Laksa broth: heat the oil in a large saucepan over medium-low heat. Add garlic and ginger; saut&eacute; 20 seconds until fragrant (don't let it brown). Add the lemongrass and chillies; cook 1 min.</li>
+        <li>Add the laksa paste; increase heat to medium and cook 2 min, stirring constantly, until fragrant.</li>
+        <li>Add the chicken stock, coconut milk, fish sauce, and 2 tsp of the laksa chilli sauce. Cover and simmer 10 min.</li>
+        <li>Taste and adjust &mdash; lime juice for sourness, fish sauce for saltiness. Add the tofu puffs (or fried tofu). Turn off heat, leave covered 5 min.</li>
+        <li>Cook the noodles per packet directions. Divide between 2 bowls; top with shredded chicken. Ladle the hot broth over; top with bean sprouts and garnishes. Serve with the laksa chilli sauce on the side.</li>
+      </ol>
+      <p class="safety"><strong>Safety:</strong> chicken to at least 165&deg;F/74&deg;C &mdash; the 25-min simmer well exceeds this; judge by the flesh falling easily from the bone.</p>
+      <h4>Storage</h4>
+      <p>Fridge broth and chicken up to 3&ndash;4 days; store noodles/bean sprouts separately to avoid sogginess. Reheat broth on the stovetop or microwave until steaming, then combine with noodles at serving time.</p>
+    </div>
+  </details>
 
-  <details class="recipe">
+  <details class="recipe fav-card">
     <summary><h3>One-Pan &ldquo;Marry Me&rdquo; Chicken Orzo</h3><span class="tag mbkk">MBKK 5&#9733;</span><span class="tag batch">batch</span></summary>
     <div class="recipe-body">
       <p class="meta">Serves 6 &middot; ~15 min active &middot; ~35 min total &middot; grain-and-sauce combo, reheats well</p>
@@ -702,7 +772,7 @@
     </div>
   </details>
 
-  <details class="recipe">
+  <details class="recipe fav-card">
     <summary><h3>Thai Chilli Basil Chicken</h3><span class="tag mbkk">MBKK 5&#9733;</span><span class="tag batch">batch</span></summary>
     <div class="recipe-body">
       <p class="meta">Serves 2 &middot; ~10 min active &middot; ~15 min total &middot; reheats well as a stir-fry over rice</p>
@@ -734,6 +804,7 @@
       <p>Fridge up to 3&ndash;4 days. Reheat in a hot pan or microwave 1&ndash;2 min; the basil darkens slightly but flavor holds.</p>
     </div>
   </details>
+  </div>
 </section>
 
 <footer>Updated 2026-07-09 &middot; Personal Assistant / Meal Planning</footer>
@@ -754,6 +825,38 @@
       localStorage.setItem(key, JSON.stringify(state));
     });
   });
+})();
+
+(function () {
+  var pool = document.getElementById('fav-pool');
+  if (!pool) return;
+  var cards = Array.prototype.slice.call(pool.querySelectorAll('.fav-card'));
+  var SHOW = 3;
+  var controls = document.querySelector('.fav-controls');
+  var countEl = document.getElementById('fav-count');
+  var btn = document.getElementById('fav-shuffle');
+  if (cards.length <= SHOW) {
+    // Nothing to rotate — show every favorite and hide the shuffle controls.
+    cards.forEach(function (c) { c.hidden = false; });
+    if (controls) controls.hidden = true;
+    return;
+  }
+  if (countEl) countEl.textContent = 'Showing ' + SHOW + ' of ' + cards.length + ' — a fresh set each visit';
+  function shuffle() {
+    var order = cards.map(function (_, i) { return i; });
+    for (var i = order.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = order[i]; order[i] = order[j]; order[j] = t;
+    }
+    var show = {};
+    order.slice(0, SHOW).forEach(function (idx) { show[idx] = true; });
+    cards.forEach(function (card, i) {
+      card.hidden = !show[i];
+      if (card.hidden) card.open = false;
+    });
+  }
+  shuffle();
+  if (btn) btn.addEventListener('click', shuffle);
 })();
 </script>
 
