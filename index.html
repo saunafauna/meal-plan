@@ -127,6 +127,8 @@
     margin-bottom: 0.5rem;
   }
   .store-note { font-size: 0.78rem; color: var(--muted); font-style: italic; margin: 0.35rem 0 0.2rem; }
+  .flyer-dates { list-style: none; padding: 0; margin: 0 0 1.1rem; color: var(--muted); font-size: 0.82rem; }
+  .flyer-dates li { padding: 0.12rem 0; }
   .cat-label {
     font-size: 0.72rem;
     letter-spacing: 0.06em;
@@ -266,7 +268,7 @@
   <header class="top">
     <p class="eyebrow">Meal Plan &middot; 2 people</p>
     <h1>Week of July 27</h1>
-    <p class="updated">Updated 2026-07-27</p>
+    <p class="updated" id="page-updated" data-updated="2026-07-24">Updated today</p>
   </header>
 </div>
 
@@ -281,21 +283,33 @@
 <section id="deals">
   <p class="eyebrow">Checklist</p>
   <h2>Shopping List</h2>
-  <p class="lead">Grouped by store so you can shop one stop at a time. Tap to check off &mdash; your list saves on this device. Prices are store-brand sale prices; the &starf; marks the strongest deals. Superstore flyer runs Thu Jul 23&ndash;Wed Jul 29; T&amp;T flyer runs Thu Jul 24&ndash;Wed Jul 30; Walmart prices are current rollback pricing.</p>
+  <ul class="flyer-dates">
+    <li>Superstore &mdash; valid Thu Jul 23 &ndash; Wed Jul 29</li>
+    <li>T&amp;T &mdash; valid Thu Jul 24 &ndash; Wed Jul 30</li>
+    <li>Walmart &mdash; current rollback pricing</li>
+  </ul>
 
   <div class="store-group">
     <h3>Real Canadian Superstore</h3>
-    <p class="cat-label">Protein</p>
+    <p class="cat-label">Protein &amp; Seafood</p>
     <label class="item"><input type="checkbox"><span class="name">Chicken Breast (club size, halal) <span class="star">&starf;</span></span><span class="price num">$6.88/lb</span></label>
     <label class="item"><input type="checkbox"><span class="name">Beef Sirloin Tip Steak or Roast (grass fed, pasture raised, club size) <span class="star">&starf;</span></span><span class="price num">$11/lb</span></label>
     <label class="item"><input type="checkbox"><span class="name">Ground Beef</span><span class="price num">$9/lb</span></label>
+    <label class="item"><input type="checkbox"><span class="name">No Name Mild Sugar Cured Bacon (375g) <span class="star">&starf;</span></span><span class="price num">$3.50</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Pork Chops (centre-cut or rib-end boneless, club size)</span><span class="price num">$6&ndash;7/lb</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Seaquest Colossal Shrimp (frozen, limit 4)</span><span class="price num">$6</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Seaquest Sole / Tilapia / Basa / Pollock Fillets (frozen, limit 4)</span><span class="price num">$6</span></label>
     <p class="cat-label">Produce</p>
     <label class="item"><input type="checkbox"><span class="name">Kale <span class="star">&starf;</span></span><span class="price num">$1.99/lb</span></label>
     <label class="item"><input type="checkbox"><span class="name">Bulk Roma Tomatoes <span class="star">&starf;</span></span><span class="price num">$1.99/lb</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Sweet Peppers (Naturally Imperfect, 2.5 lb, club size)</span><span class="price num">$3.94</span></label>
     <p class="cat-label">Fruit &amp; Staples</p>
     <label class="item"><input type="checkbox"><span class="name">Mini Seedless Watermelon <span class="flag">&#9888;&#65039; high-FODMAP</span></span><span class="price num">$5 each</span></label>
-    <label class="item"><input type="checkbox"><span class="name">Blueberries (club size, 2 lb)</span><span class="price num">$3.99 (limit 4)</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Blueberries (club size, 2 lb) <span class="star">&starf;</span></span><span class="price num">$3.33 (Hot Deal)</span></label>
     <label class="item"><input type="checkbox"><span class="name">Frozen Fruit (Naturally Imperfect)</span><span class="price num">$3 (300&ndash;600g)</span></label>
+    <label class="item"><input type="checkbox"><span class="name">Frozen Strawberries / Mixed Fruit (Naturally Imperfect, 400g)</span><span class="price num">$3</span></label>
+    <label class="item"><input type="checkbox"><span class="name">PC Organics Frozen Vegetables (limit 4)</span><span class="price num">$4</span></label>
+    <label class="item"><input type="checkbox"><span class="name">PC Ice Cream (assorted)</span><span class="price num">$4.50</span></label>
     <label class="item"><input type="checkbox"><span class="name">No Name Cream Cheese</span><span class="price num">$3</span></label>
   </div>
 
@@ -861,7 +875,19 @@
 
 <script>
 (function () {
-  var key = 'mealplan-2026-07-27';
+  var el = document.getElementById('page-updated');
+  if (el) {
+    var d = el.getAttribute('data-updated');
+    if (d) {
+      var then = new Date(d + 'T00:00:00'), now = new Date(); now.setHours(0, 0, 0, 0);
+      var days = Math.floor((now - then) / 86400000);
+      el.textContent = days <= 0 ? 'Updated today' : days === 1 ? 'Updated 1 day ago' : 'Updated ' + days + ' days ago';
+    }
+  }
+})();
+
+(function () {
+  var key = 'mealplan-2026-07-27-b';
   var checkboxes = Array.prototype.slice.call(document.querySelectorAll('.item input[type="checkbox"]'));
   var saved = {};
   try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) {}
