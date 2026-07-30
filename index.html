@@ -83,11 +83,13 @@
     position: sticky;
     top: 0;
     z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.pillnav .wrap {
     display: flex;
     gap: 0.5rem;
     padding: 0.7rem 1.1rem;
-    background: var(--bg);
-    border-bottom: 1px solid var(--line);
     overflow-x: auto;
   }
   nav.pillnav a {
@@ -273,9 +275,11 @@
 </div>
 
 <nav class="pillnav">
-  <a href="#deals">Shopping</a>
-  <a href="#recipes">Recipes</a>
-  <a href="#favorites">Favorites</a>
+  <div class="wrap">
+    <a href="#deals">Shopping</a>
+    <a href="#recipes">Recipes</a>
+    <a href="#favorites">Favorites</a>
+  </div>
 </nav>
 
 <div class="wrap">
