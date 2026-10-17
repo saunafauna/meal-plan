@@ -13,6 +13,7 @@
     --muted: #6b7062;
     --accent: #a23b2e;
     --accent-2: #b98a2e;
+    --veg: #4f7a3a;
     --line: #dad6c8;
     --shadow: rgba(35, 40, 31, 0.08);
   }
@@ -24,6 +25,7 @@
       --muted: #9ca08c;
       --accent: #e07a62;
       --accent-2: #e6b85c;
+      --veg: #8cc070;
       --line: #34392c;
       --shadow: rgba(0, 0, 0, 0.35);
     }
@@ -35,6 +37,7 @@
     --muted: #9ca08c;
     --accent: #e07a62;
     --accent-2: #e6b85c;
+    --veg: #8cc070;
     --line: #34392c;
     --shadow: rgba(0, 0, 0, 0.35);
   }
@@ -45,6 +48,7 @@
     --muted: #6b7062;
     --accent: #a23b2e;
     --accent-2: #b98a2e;
+    --veg: #4f7a3a;
     --line: #dad6c8;
     --shadow: rgba(35, 40, 31, 0.08);
   }
@@ -201,6 +205,7 @@
   .tag.mbkk { color: var(--accent-2); border-color: var(--accent-2); }
   .tag.batch { color: var(--muted); }
   .tag.fresh { color: var(--muted); border-style: dashed; }
+  .tag.veg { color: var(--veg); border-color: var(--veg); }
 
   .leverages {
     font-size: 0.82rem;
@@ -300,10 +305,7 @@
     <label class="item"><input type="checkbox"><span class="name">Pork tenderloin or pork loin back ribs (Scene+ price) <span class="star">&starf;</span></span><span class="price num">$3.99/lb</span></label>
     <label class="item"><input type="checkbox"><span class="name">Compliments air-chilled chicken breast halves <span class="star">&starf;</span></span><span class="price num">$5.99/lb</span></label>
     <label class="item"><input type="checkbox"><span class="name">Chicken legs, back attached</span><span class="price num">$3.99/lb</span></label>
-    <label class="item"><input type="checkbox"><span class="name">Beef stewing cubes, family size</span><span class="price num">$7.99/lb</span></label>
     <label class="item"><input type="checkbox"><span class="name">Coho salmon fillets, previously frozen</span><span class="price num">$2.49/100 g</span></label>
-    <label class="item"><input type="checkbox"><span class="name">Bulk potatoes</span><span class="price num">$1.49/lb</span></label>
-    <label class="item"><input type="checkbox"><span class="name">Compliments baby-cut carrots, 340 g</span><span class="price num">$1.99</span></label>
     <p class="cat-label">Fruit &amp; Staples</p>
     <label class="item"><input type="checkbox"><span class="name">Compliments or Canadian Butcher bacon, 375 g (ends Sun Oct 18) <span class="star">&starf;</span></span><span class="price num">$3.77</span></label>
     <label class="item"><input type="checkbox"><span class="name">Honeycrisp apples, BC &#9888;&#65039; high-FODMAP</span><span class="price num">$1.99/lb</span></label>
@@ -314,9 +316,9 @@
     <p class="cat-label">Protein &amp; Produce</p>
     <label class="item"><input type="checkbox"><span class="name">Pork side rib portion <span class="star">&starf;</span></span><span class="price num">$3.49/lb</span></label>
     <label class="item"><input type="checkbox"><span class="name">No Name sweet peppers, 2.5 lb bag</span><span class="price num">$6.00</span></label>
+    <label class="item"><input type="checkbox"><span class="name">No Name limes, 680 g</span><span class="price num">$4.00</span></label>
     <label class="item"><input type="checkbox"><span class="name">Lean ground pork, 450 g</span><span class="price num">$4.50</span></label>
     <label class="item"><input type="checkbox"><span class="name">PC Pacific white shrimp 31&ndash;40, 400 g</span><span class="price num">$8.00</span></label>
-    <label class="item"><input type="checkbox"><span class="name">No Name brown/white mushrooms, 680 g &#9888;&#65039; high-FODMAP</span><span class="price num">$5.50</span></label>
     <p class="cat-label">Fruit &amp; Staples</p>
     <label class="item"><input type="checkbox"><span class="name">No Name mandarins, 2 lb <span class="star">&starf;</span></span><span class="price num">$2.99</span></label>
     <label class="item"><input type="checkbox"><span class="name">Oikos or Two Good Greek yogurt, 4-pack (limit 3)</span><span class="price num">$3.47</span></label>
@@ -347,7 +349,7 @@
 <section id="recipes">
   <p class="eyebrow">Cook from here</p>
   <h2>Recipes</h2>
-  <p class="lead">This week the best deals are pork and Safeway chicken. Superstore pork side ribs at $3.49/lb are the cheapest we&rsquo;ve logged, and Safeway pork tenderloin is $3.99/lb with Scene+. That puts two recipes we keep skipping back on the list, alongside four favorites. One Safeway run covers most of it. Cook whichever 2&ndash;3 you feel like.</p>
+  <p class="lead">This week the best deals are pork and Safeway chicken. Superstore pork side ribs at $3.49/lb are the cheapest we&rsquo;ve logged, and Safeway pork tenderloin is $3.99/lb with Scene+. That puts two recipes we keep skipping back on the list, alongside three favorites and this week&rsquo;s vegetarian pick, an oven-baked almond butter tofu stir-fry. One Safeway run covers most of it. Cook whichever 2&ndash;3 you feel like.</p>
 
   <details class="recipe">
     <summary><h3>Oven-Baked BBQ Pork Ribs</h3><span class="tag new">new</span><span class="tag batch">batch</span></summary>
@@ -522,58 +524,48 @@
   </details>
 
   <details class="recipe">
-    <summary><h3>Instant Pot Beef Stew</h3><span class="tag mbkk">MBKK 5&#9733;</span><span class="tag batch">batch</span></summary>
-    <p class="leverages"><strong>Leverages</strong> &middot; Safeway beef stewing cubes ($7.99/lb, a fair price but not a standout) + Safeway bulk potatoes ($1.49/lb) + baby-cut carrots ($1.99). Superstore No Name mushrooms (680 g, $5.50) cover the mushrooms, though they&rsquo;re a FODMAP trigger, so see the flag.</p>
+    <summary><h3>Almond Butter Tofu Stir-Fry</h3><span class="tag new">new</span><span class="tag veg">veg</span><span class="tag batch">batch</span></summary>
+    <p class="leverages"><strong>Leverages</strong> &middot; Superstore No Name sweet peppers (2.5 lb bag, $6, the same bag the curry uses) + Superstore No Name limes (680 g, $4). Tofu and green beans are regular price; tofu rarely goes on sale and is cheap anyway.</p>
     <div class="recipe-body">
-      <p class="meta">Serves 4&ndash;6 (2 people &times; 2&ndash;3 meals) &middot; ~25 min active &middot; ~1 hr 30 min total &middot; Instant Pot, reheats excellently, freezes well</p>
-      <p class="source">Source: <a href="https://www.pressurecookrecipes.com/instant-pot-beef-stew/" target="_blank" rel="noopener">Pressure Cook Recipes</a> &middot; 4.99&#9733; (199 ratings). Cooked and scored 5&#9733; by us &mdash; in the repo (<code>recipes/instant-pot-beef-stew.md</code>). Followed as written.</p>
-      <p class="fodmap-flag">&#9888;&#65039; <strong>FODMAP flag (high):</strong> onion, garlic, and the white mushrooms are the notable triggers here. Lighter option: swap the onions for the green tops of green onions, use garlic-infused oil in place of the minced garlic, and either omit the mushrooms or swap in canned/oyster mushrooms (lower-FODMAP than fresh white mushrooms).</p>
-      <h4>Beef &amp; Oil</h4>
+      <p class="meta">Serves 4 (doubled from the source&rsquo;s 2, for lunches) &middot; ~20 min active &middot; ~1 hr 5 min total, most of it hands-off oven time for the tofu &middot; reheats well</p>
+      <p class="source">Source: <a href="https://minimalistbaker.com/almond-butter-tofu-stir-fry/" target="_blank" rel="noopener">Minimalist Baker</a> &middot; 4.89&#9733; (143 ratings). This week&rsquo;s vegetarian option, and the first time it&rsquo;s been on the menu.</p>
+      <p class="modnote"><strong>Modified from source:</strong> doubled for lunches. The source uses 2&ndash;3 small spicy peppers (cherry bomb) and notes that bell peppers work but are milder; this version uses sweet peppers from the sale bag. To keep the heat, add the full amount of chili garlic sauce or a minced Thai chili.</p>
+      <p class="fodmap-flag">&#9888;&#65039; <strong>FODMAP flag (low):</strong> no onion or fresh garlic. The only garlic is the small amount in the chili garlic sauce, and maple syrup is a low-FODMAP sweetener. Lighter option: use red pepper flakes instead of the chili garlic sauce, which removes the garlic entirely.</p>
+      <h4>Tofu</h4>
       <ul>
-        <li>2 lb chuck steak or blade steak (1.5 inches thick), cut into 1.5&ndash;2 inch cubes</li>
-        <li>1 tbsp olive oil</li>
+        <li>2 packages (12 oz / ~350 g each) extra-firm tofu</li>
       </ul>
-      <h4>Vegetables &amp; Seasonings</h4>
+      <h4>Marinade / Sauce</h4>
       <ul>
-        <li>12 white mushrooms, thinly sliced (see FODMAP note)</li>
-        <li>2 small onions, thinly sliced (see FODMAP note)</li>
-        <li>3 garlic cloves, crushed and minced (see FODMAP note)</li>
-        <li>2 bay leaves</li>
-        <li>&frac14; tsp dried thyme</li>
-        <li>3&ndash;4 small Yukon gold potatoes, quartered</li>
-        <li>2 medium carrots, cut into 1&frac12;-inch chunks</li>
-        <li>2 celery stalks, cut into 1&frac12;-inch chunks</li>
-        <li>&frac12; cup frozen peas</li>
-        <li>Salt and black pepper, to taste</li>
+        <li>4 tbsp toasted sesame oil, divided</li>
+        <li>&frac12; cup (8 tbsp) reduced-sodium soy sauce or tamari</li>
+        <li>6 tbsp maple syrup</li>
+        <li>4 tbsp almond butter (or peanut butter)</li>
+        <li>4 tbsp lime juice (about 2&ndash;3 limes)</li>
+        <li>2&ndash;4 tsp chili garlic sauce (or 1 tsp red pepper flakes)</li>
       </ul>
-      <h4>Liquids &amp; Flavor</h4>
+      <h4>Vegetables</h4>
       <ul>
-        <li>&frac14; cup sherry wine</li>
-        <li>3 tbsp tomato paste</li>
+        <li>2 lb green beans, ends trimmed</li>
+        <li>4 sweet peppers, cut into bite-size strips</li>
       </ul>
-      <h4>Chicken Stock Mixture</h4>
-      <ul>
-        <li>1&frac12; cups unsalted chicken stock</li>
-        <li>1 tbsp Worcestershire sauce</li>
-        <li>1 tbsp regular soy sauce</li>
-        <li>1 tbsp fish sauce</li>
-      </ul>
+      <p><em>To serve:</em> steamed jasmine rice; extra chili garlic sauce or sriracha</p>
       <h4>Equipment</h4>
-      <p>Instant Pot / electric pressure cooker, wooden spoon, cutting board, knife</p>
+      <p>2 rimmed baking sheets, parchment paper, a clean kitchen towel, something heavy for pressing (a cast-iron pan or a few cans), a large skillet with a lid, a medium bowl, whisk</p>
       <h4>Steps</h4>
       <ol>
-        <li>Cut the beef into 1.5&ndash;2 inch cubes and season with salt and pepper. Set the Instant Pot to Saut&eacute; (More/High) and let it get hot. Add the olive oil, then brown the beef in batches, about 7 min per side, until deeply browned on the outside (it doesn't need to be cooked through). Set aside.</li>
-        <li>Optional but recommended: saut&eacute; the mushrooms in the same pot until their moisture evaporates and the edges brown, about 6 min. Season lightly and set aside with the beef.</li>
-        <li>Add the onions and saut&eacute; 3 min until softened, then add the garlic, bay leaves, and thyme; saut&eacute; 1 more min until fragrant.</li>
-        <li>Pour in the sherry wine and scrub the bottom of the pot firmly with a wooden spoon to release any browned bits, letting it reduce slightly &mdash; this deglazing step also prevents a &ldquo;burn&rdquo; warning during pressure cooking.</li>
-        <li>Whisk together the chicken stock, Worcestershire sauce, soy sauce, and fish sauce. Pour into the pot along with the browned beef. Add the potatoes, carrots, and celery. Spoon the tomato paste on top without stirring it in.</li>
-        <li>Close and lock the lid, and set the vent knob to sealing. Cook at high pressure for 32 min, then let the pressure release naturally for 10 min before manually releasing any remaining pressure.</li>
-        <li>Switch back to Saut&eacute; (More) and simmer, breaking down the softened vegetables and stirring, until the stew thickens to your liking &mdash; the potatoes falling apart slightly is what does most of the thickening. Stir in the frozen peas and the reserved mushrooms, and season to taste with salt and pepper. If it's still thin, stir in a cornstarch or flour slurry and simmer a minute more.</li>
-        <li>Ladle into bowls and serve.</li>
+        <li>Preheat the oven to 400&deg;F (204&deg;C) and line two baking sheets with parchment. Drain the tofu, wrap the blocks in a clean towel, and set something heavy on top for about 15 minutes while the oven heats. Pressing out the water is what lets the tofu crisp instead of steam.</li>
+        <li>Unwrap the tofu and cut it into small (~&frac34;-inch) cubes. Spread them in a single layer across both sheets, not touching. Bake 25&ndash;30 minutes, until the cubes look puffed, dry on the outside, and golden at the edges. They should feel firm and springy, not soft. Bake longer if you want them chewier.</li>
+        <li>While the tofu bakes, whisk 2 tbsp of the sesame oil with the soy sauce, maple syrup, almond butter, lime juice, and chili garlic sauce in a medium bowl until smooth. Taste: it should be salty, sweet, tangy and a little spicy. Adjust to your liking. Start the rice now too.</li>
+        <li>Tip the hot baked tofu into the sauce and stir to coat. Let it soak 5&ndash;10 minutes, stirring once or twice.</li>
+        <li>Heat a large skillet over medium heat. Lift the tofu out of the bowl with a slotted spoon, leaving most of the sauce behind, and add it to the pan. Cook about 5 minutes, stirring, until the edges are browned and slightly sticky. Move the tofu to a plate.</li>
+        <li>Cook the vegetables in two batches so they steam evenly. For each batch, add 1 tbsp of the remaining sesame oil, half the green beans and peppers, and 2&ndash;3 tbsp of the leftover sauce. Cover and steam 4&ndash;5 minutes, until the beans turn bright green and a knife meets only slight resistance. Remove the first batch and repeat with the second.</li>
+        <li>Return all the vegetables and tofu to the pan, pour in the rest of the sauce, and raise the heat to medium-high. Cook 1&ndash;2 minutes, stirring often, until everything is glossy and the sauce has thickened onto the vegetables. Remove from the heat.</li>
+        <li>Serve over rice, with extra chili garlic sauce or sriracha if you like.</li>
       </ol>
-      <p class="safety"><strong>Safety:</strong> beef must reach a minimum internal temperature of 145&deg;F/63&deg;C for medium doneness, though stewing meat is typically cooked well past that until fork-tender. The 32-min high-pressure cook plus natural release takes the beef well beyond this &mdash; doneness is best judged by the beef being fork-tender, not by temperature.</p>
+      <p class="safety"><strong>Safety:</strong> there&rsquo;s no meat, so there&rsquo;s no internal temperature to hit. Tofu is safe to eat as it comes from the package. Just reheat leftovers until they&rsquo;re steaming hot.</p>
       <h4>Storage</h4>
-      <p>Refrigerate up to 4&ndash;5 days, or freeze up to 3 months. Reheat on the stovetop over medium-low heat, stirring occasionally, about 5&ndash;7 min, or microwave covered 2&ndash;3 min, stirring halfway through.</p>
+      <p>Refrigerate in airtight containers up to 3 days (the source&rsquo;s guidance). Pack the rice separately or alongside. Microwave covered 1&frac12;&ndash;2 minutes, stirring halfway. The tofu softens a little after a day, but the sauce keeps it flavorful.</p>
     </div>
   </details>
 
@@ -1172,7 +1164,7 @@
 })();
 
 (function () {
-  var key = 'mealplan-2026-10-19';
+  var key = 'mealplan-2026-10-19-b';
   var checkboxes = Array.prototype.slice.call(document.querySelectorAll('.item input[type="checkbox"]'));
   var saved = {};
   try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) {}
